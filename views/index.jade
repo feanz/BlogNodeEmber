@@ -1,0 +1,17 @@
+extends layout
+
+block content
+ script(type='text/x-handlebars')
+  div.navbar
+   div.navbar-inner    
+    a.brand Blogger
+    ul.nav
+     li
+      {{#linkTo 'posts'}}Posts{{/linkTo}}
+     li
+      {{#linkTo 'about'}}About{{/linkTo}}
+
+  {{outlet}}
+
+ include about.jade 
+ include posts.jade
