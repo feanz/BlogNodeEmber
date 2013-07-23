@@ -10,8 +10,28 @@ App.Router.map(function(){
   this.resource('about');    
 });
 
+//Mixin
+App.Jsonable = Ember.Mixin.create({
+    getJson: function() {
+        var v, ret = [];
+        for (var key in this) {
+            if (this.hasOwnProperty(key)) {
+                v = this[key];
+                if (v === 'toString') {
+                    continue;
+                } // ignore useless items
+                if (Ember.typeOf(v) === 'function') {
+                    continue;
+                }
+                ret.push(key);
+            }
+        }
+        return this.getProperties(ret);
+    }
+});
+
 //Model
-App.Model = Ember.Object.extend({
+App.Model = Ember.Object.extend(App.Jsonable,{
   mergeAttributes: function(attrs, builders) {
     var _this = this;
     _.each(attrs, function(v,k) {
@@ -58,23 +78,29 @@ App.Post.reopenClass({
         return model;
       });     
     return (model);
+  },
+  save: function(post){
+    var json = post.getJson()        
+    return $.ajax('api/posts',{
+      type: 'PUT',
+      data: {post: json}
+    });
   }
 })
 
 //Controllers
 App.PostController = Ember.ObjectController.extend({
-  isEditing:false,
+  isEditing: false,
   canEdit: true,
   edit: function(){
     this.set('isEditing', true);
   },
-  doneEditing: function(){
-    l.log(this);
-    /*$.ajax('api/posts',{
-      type: 'PUT',
-      data:
-    })*/
-    this.set('isEditing', false);
+  doneEditing: function(){  
+    var self = this;
+    App.Post.save(self.get('model')).then(function(){
+      l.log("call back");
+      self.set('isEditing', false);
+    })    
   }
 });
 

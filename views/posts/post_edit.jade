@@ -1,4 +1,5 @@
 script(type='text/x-handlebars', id='post/_edit')
+ h3 Edit Mode
  p {{view Ember.TextField valueBinding='title'}}
- p {{view Ember.TextArea valueBinding='intro'}}
- p {{view Ember.TextArea valueBinding='extended'}}
+ p {{view Ember.TextArea valueBinding='intro' rows='2' cols='10' class='span12'}}
+ p {{view Ember.TextArea valueBinding='extended' rows='6' cols='10' class='span12'}}
