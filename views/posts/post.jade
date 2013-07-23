@@ -1,0 +1,22 @@
+script(type='text/x-handlebars', id='post')
+ {{#if isEditing}}
+ {{partial 'post/edit'}}
+ <button {{action 'doneEditing'}}> Done </button>
+ {{else}}
+ {{#if canEdit}}
+ <button {{action 'edit'}}> Edit </button>
+ {{/if}}
+ {{/if}}
+ {{#if loaded}}
+ h1 {{title}}
+ h2 
+  | by {{author}} 
+  small.muted {{fromNow publishedAt}}
+ hr
+ div.intro
+  {{markdown intro}}
+ div.below-the-fold
+  {{markdown extended}} 
+ {{else}}
+ p Loading content...
+ {{/if}}

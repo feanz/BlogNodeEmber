@@ -1,0 +1,19 @@
+script(type='text/x-handlebars', id='posts/index')
+ p.text-warning Please select a post
+
+script(type='text/x-handlebars', id='posts')
+ div.container-fluid
+  div.row-fluid
+   div.span3
+    table.table
+     thead
+      tr
+       th Recent Posts     
+     {{#each model}}
+     tr
+      td
+       a {{#linkTo 'post' this}} {{title}} 
+        small.muted By {{author}} {{/linkTo}}
+     {{/each}}     
+   div.span9
+    {{outlet}}

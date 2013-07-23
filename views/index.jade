@@ -4,7 +4,7 @@ block content
  script(type='text/x-handlebars')
   div.navbar
    div.navbar-inner    
-    a.brand Blogger
+    a.brand BlogR
     ul.nav
      li
       {{#linkTo 'posts'}}Posts{{/linkTo}}
@@ -13,5 +13,8 @@ block content
 
   {{outlet}}
 
- include about.jade 
- include posts.jade
+ include about.jade  
+ include posts/post_edit.jade
+ include posts/post.jade
+ include posts/posts.jade
+ 
